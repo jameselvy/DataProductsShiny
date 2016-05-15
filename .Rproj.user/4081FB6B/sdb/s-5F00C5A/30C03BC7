@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n# This is the server logic for a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\n\nshinyServer(function(input, output) {\n\n  output$distPlot <- renderPlot({\n\n    library(mixtools)    # install.packages(\"mixtools\")\n    \n    # http://stackoverflow.com/questions/25313578/any-suggestions-for-how-i-can-plot-mixem-type-data-using-ggplot2\n    proportions <- c(input$size.a, input$size.b, input$size.c)\n    means <- c(input$mean.a, input$mean.b, input$mean.c)\n    sds <- c(input$sd.a, input$sd.b, input$sd.c)\n    \n    a <- data.frame(matrix(rnorm(100000, mean=means[1], sd=sds[1]))); samp.a <- a[sample(nrow(a), proportions[1]), ]; den.a <- density(samp.a)\n    b <- data.frame(matrix(rnorm(100000, mean=means[2], sd=sds[2]))); samp.b <- b[sample(nrow(b), proportions[2]), ]; den.b <- density(samp.b)\n    c <- data.frame(matrix(rnorm(100000, mean=means[3], sd=sds[3]))); samp.c <- c[sample(nrow(c), proportions[3]), ]; den.c <- density(samp.c)\n    \n    ### build up mix sample\n    mix <- c(samp.a, samp.b, samp.c)\n    \n    ### Build up mix model\n    mixModel <- normalmixEM(mix, lambda=NULL, mu=NULL, sigma=NULL, k=3)   # k=3 as we expect three populations are sampled  \n  \n    ### plots\n    par(mfrow=c(1,2))                    # 1 figures arranged in 2 rows and 1 column\n    hist(mix, freq = F, main = \"User defined trimodal distribution\", xlab = \"Data\")          # 'mixed' distribution\n    lines(den.a$x, den.a$y * (proportions[1] / sum(proportions)), col = \"blue\", lwd = 2)\n    lines(den.b$x, den.b$y * (proportions[2] / sum(proportions)), col = \"red\", lwd = 2)\n    lines(den.c$x, den.c$y * (proportions[3] / sum(proportions)), col = \"green\", lwd = 2)\n    plot(mixModel, which = 2, main2 = \"Decomposition of mix sample using 'mixtools'\")      # mixtools decomposition\n    summary(mixModel)\n  \n    # make dataframe of comparisons\n    comparisonTable <- data.frame(proportions, round((proportions / sum(proportions)) * 100, 0), means, sds, row.names = c(\"Component1\", \"Component2\", \"Component3\")) \n    names(comparisonTable) <- c(\"count\", \"percent of total count\", \"mean\", \"standard deviation\")\n    comparisonTable\n    output$table <- renderTable(comparisonTable)\n    \n    # make dataframe of comparisons\n    comparisonMixTable <- data.frame(round(mixModel$lambda * 100, 0), round(mixModel$mu, 2), round(mixModel$sigma, 2), row.names = c(\"MixComponent1\", \"MixComponent2\", \"MixComponent3\")) \n    names(comparisonMixTable) <- c(\"Estimated count percent\", \"mean\", \"standard deviation\")\n    comparisonMixTable\n    output$Mixtable <- renderTable(comparisonMixTable)\n    \n    # http://dsp.stackexchange.com/questions/26358/how-to-detect-whether-a-signal-is-unimodal-or-bimodal\n    # library(diptest)   # install.packages(\"diptest\")\n    # output$dip <- dip.test(mix)\n  })\n})\n",
+    "created" : 1463180455701.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "384153656",
+    "id" : "30C03BC7",
+    "lastKnownWriteTime" : 1463313755,
+    "last_content_update" : 1463313755444,
+    "path" : "~/Documents/rprojects/CourseraDataProductsShiny/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

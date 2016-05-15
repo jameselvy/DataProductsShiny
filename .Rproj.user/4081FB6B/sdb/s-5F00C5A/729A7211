@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "install.packages('rsconnect')\n\nrsconnect::setAccountInfo(name='jameselvy', token='716DAA650EA25F73F23C7362DDD43675', secret='2MFtvtOmojnH5Hh0o+2hHYQV2ZYT7F4nEYVYBHab')\n\nlibrary(rsconnect)\nrsconnect::deployApp('path/to/your/app')\n\nrunApp()        # make sure it run's locally before you deploy it\ndeployApp()     # upload to jameselvy@shinyapps.io\n",
+    "created" : 1463314009208.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2005129662",
+    "id" : "729A7211",
+    "lastKnownWriteTime" : 1463292233,
+    "last_content_update" : 1463292233,
+    "path" : "~/Documents/rprojects/CourseraDataProductsShiny/setup_shinyappsServer.r",
+    "project_path" : "setup_shinyappsServer.r",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

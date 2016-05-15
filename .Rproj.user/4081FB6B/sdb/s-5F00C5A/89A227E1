@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# require(devtools)\n# install_github(\"ramnathv/slidify\")\n# install_github(\"ramnathv/slidifyLibraries\")\n\nlibrary(slidify)\nlibrary(knitr)\n\n\n\nauthor(\"DataProductsSlidify\")                                                  # create new slidify presentation\n\n\n### do following each time modify slides\nslidify(\"index.Rmd\")                                                           # recompile slides\nbrowseURL(\"index.html\")                                                        # view html locally\n\n# first, you will need to create a new repository on GitHub\npublish(user = \"jameselvy\", repo = \"DataProductsSlidify\", host = 'github')     # publish to github\n\n\n\n\ngrid.raster(readPNG(\"figures/3.png\"))\n\n\n\ngetwd()\nsetwd(\"/Users/james/Documents/rprojects/CourseraDataProductsSlidify\")\n\n### Git commands\n# git init\n# git add -A\n# git commit -a -m message\n# git remote add origin https://github.com/jameselvy/DataProductsSlidify.git\n# git push -u origin master\n\n# git push -u origin --mirror  # will delete all references \n# git remote rm origin\n\n\n\n",
+    "created" : 1463317277766.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4148781591",
+    "id" : "89A227E1",
+    "lastKnownWriteTime" : 1463125952,
+    "last_content_update" : 1463125952,
+    "path" : "~/Documents/rprojects/CourseraDataProductsSlidify/slidify.r",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

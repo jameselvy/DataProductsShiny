@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# http://www.r-bloggers.com/visually-weighted-regression-in-r-a-la-solomon-hsiang/\n# http://rstudio-pubs-static.s3.amazonaws.com/1001_3177e85f5e4840be840c84452780db52.html# mixtools\nlibrary(mixtools)    # install.packages(\"mixtools\")\n\n# http://stackoverflow.com/questions/25313578/any-suggestions-for-how-i-can-plot-mixem-type-data-using-ggplot2\nproportions <- c(5000, 4000, 1000)\nmeans <- c(1.5, 3, 8)\nsds <- c(1.5, 2, 4)\n\ndist.a <- rnorm(proportions[1], mean=means[1], sd=sds[1]); den.a <- density(dist.a)\ndist.b <- rnorm(proportions[2], mean=means[2], sd=sds[2]); den.b <- density(dist.b)\ndist.c <- rnorm(proportions[3], mean=means[3], sd=sds[3]); den.c <- density(dist.c)\n\n\n# build up mix sample\nmix <- c(dist.a, dist.b, dist.c)\n\n# histograms\n#hist(mix)              # counts\nhist(mix, freq = F, main = \"Distribution of combined samples\", xlab = \"Data\")    # proportions\n\n# density plots\n#plot(density(mix), col = \"black\")\nlines(den.a$x, den.a$y * (proportions[1] / sum(proportions)), col = \"red\", lwd = 2)\nlines(den.b$x, den.b$y * (proportions[2] / sum(proportions)), col = \"blue\", lwd = 2)\nlines(den.c$x, den.c$y * (proportions[3] / sum(proportions)), col = \"green\", lwd = 2)\n\n#line below returns EM output of type mixEM[] for mixture of normal distributions\nmixModel <- normalmixEM(mix, lambda=NULL, mu=NULL, sigma=NULL, k=3)   # k=3 as we expect three populations are sampled\nplot(mixModel, which = 2, main2 = \"Decomposition of mix sample using 'mixtools'\")\nsummary(mixModel)\n\n# make dataframe of comparisons\ncomparisonTable <- data.frame(round((proportions / sum(proportions)) * 100, 0), means, sds, round(mixModel$lambda * 100, 0), round(mixModel$mu, 2), round(mixModel$sigma, 2), row.names = c(\"Sample1\", \"Sample2\", \"Sample3\")) \nnames(comparisonTable) <- c(\"percent\", \"mean\", \"sd\", \"mix.percent\", \"mix.mean\", \"mix.sd\")\ncomparisonTable\n\n# http://dsp.stackexchange.com/questions/26358/how-to-detect-whether-a-signal-is-unimodal-or-bimodal\nlibrary(diptest)   # install.packages(\"diptest\")\ndip.test(mix)\n\n\n\n\n",
+    "created" : 1463128253015.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "722050939",
+    "id" : "896C11AA",
+    "lastKnownWriteTime" : 1463181691,
+    "last_content_update" : 1463181691750,
+    "path" : "~/Documents/rprojects/CourseraDataProductsShiny/mixtoolsV3.r",
+    "project_path" : "mixtoolsV3.r",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
